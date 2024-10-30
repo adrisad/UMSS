@@ -17,7 +17,13 @@ multiplicacionRecursiva a b
     | a==0 = 0
     | a>0 = b + multiplicacionRecursiva (a-1) b
 
+-- Definir la factorial recursiva
 factorial :: (Num b, Ord b) => b -> b
 factorial n 
     | n==0 = 1
     | n>0 = n * factorial (n-1)
+
+-- Definir la funcion lenght recursiva
+myLenght :: [a] -> Int
+myLenght [] = 0
+myLenght (a:ax) = 1 + myLenght (ax)
