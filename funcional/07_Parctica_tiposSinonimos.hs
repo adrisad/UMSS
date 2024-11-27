@@ -91,7 +91,7 @@ mayorGovierno p1 p2
 
 menorGovierno :: [Presidente] -> Nombre
 menorGovierno [] = "no hay presidentes"
-menorGovierno [p] = Nombre p
+menorGovierno [(nombre,_)] = nombre
 menorGovierno (x:y:xs)
   | governo x < governo y = menorGovierno (x:xs)
   | otherwise = menorGovierno (y:xs)
@@ -99,7 +99,7 @@ menorGovierno (x:y:xs)
 -- 5. Una función que reciba una lista de presidentes y devuelva una lista con los nombres de los presidentes que gobernaron antes del año 1990.
 
 esDeAntesDel1990 ::  Periodo -> Bool
-governaronAntesDe1990 ((_,_,inicio),_) = inicio < 1990
+esDeAntesDel1990 ((_,_,inicio),_) = inicio < 1990
 
 governoAntesDel1990 :: [Presidente] -> [Nombre]
 governoAntesDel1990 presidentes = [nombre|(nombre,periodo)<-presidentes,esDeAntesDel1990 periodo]
