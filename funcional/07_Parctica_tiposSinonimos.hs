@@ -56,8 +56,7 @@ zonaDepartamento LaPaz       = Altiplano
 
 -- 4. Una función que reciba una lista de departamentos y devuelva aquellos que pertenecen a la zona de los llanos o de los valles.
 
-departamentosLlanosOValles :: [Departamento] -> [Departamento]
-departamentosLlanosOValles = filter (\x -> )
+
 
 
 -- II. Sean las siguientes definiciones de tipo:
@@ -98,5 +97,36 @@ menorGovierno (x:y:xs)
   | otherwise = menorGovierno (y:xs)
 
 -- 5. Una función que reciba una lista de presidentes y devuelva una lista con los nombres de los presidentes que gobernaron antes del año 1990.
+
+esDeAntesDel1990 ::  Periodo -> Bool
+governaronAntesDe1990 ((_,_,inicio),_) = inicio < 1990
+
+governoAntesDel1990 :: [Presidente] -> [Nombre]
+governoAntesDel1990 presidentes = [nombre|(nombre,periodo)<-presidentes,esDeAntesDel1990 periodo]
+
 -- 6. Una función que reciba una lista de presidentes y devuelva la cantidad de presidentes que gobernaron menos de 4 años.
+
+goviernosMasDe4Anios :: [Presidente] -> Int
+goviernosMasDe4Anios presidentes = length [p | p <- presidentes, governo p < 4]
+
 -- 7. Una función que reciba una lista de presidentes y la ordene ascendentemente por la fecha en que fue presidente.
+
+insertarOrdenando :: Presidente -> [Presidente] -> [Presidente]
+insertarOrdenando p [] = [p]
+insertarOrdenando p (x:xs)
+  | compararFechas (fechaInicio p) (fechaInicio x) = p:x:xs
+  | otherwise = x : insertarOrdenando p xs
+
+compararFechas :: Fecha -> Fecha -> Bool
+compararFechas (d1,m1,a1) (d2,m2,a2)
+  | a1 < a2 = True
+  | m1 < m2 && a1 == a2 = True
+  | d1 < d2 && m1 == m2 && a1 == a2 = True
+  | otherwise = False
+
+fechaInicio :: Presidente -> Fecha
+fechaInicio (_,(inicio,_)) = inicio
+
+ordenarPresidentes :: [Presidente] -> [Presidente]
+ordenarPresidentes [] = []
+ordenarPresidentes (x:xs) = insertarOrdenando x (ordenarPresidentes xs)
