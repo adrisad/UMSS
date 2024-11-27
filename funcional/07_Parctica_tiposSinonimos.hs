@@ -4,6 +4,7 @@
 -- (valles, llanos y altiplano).
 
 data ZonaGeografica = Valles | Llanos | Altiplano
+  deriving (Show,Eq)
 
 -- Departamento que permita representar los 9 departamentos de Bolivia
 data Departamento = 
@@ -56,7 +57,14 @@ zonaDepartamento LaPaz       = Altiplano
 
 -- 4. Una función que reciba una lista de departamentos y devuelva aquellos que pertenecen a la zona de los llanos o de los valles.
 
+sonDeLaZona :: Departamento -> Bool
+sonDeLaZona dep
+  | zonaDepartamento dep == Llanos = True
+  | zonaDepartamento dep == Valles = True
+  | otherwise = False
 
+cualesSonDeLaZona :: [Departamento] -> [Departamento]
+cualesSonDeLaZona = filter sonDeLaZona
 
 
 -- II. Sean las siguientes definiciones de tipo:
