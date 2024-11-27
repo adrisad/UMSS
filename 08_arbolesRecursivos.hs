@@ -9,7 +9,21 @@ Definir una función para:
    c) Obtener la lista de las hojas del árbol
 -}
 
+-- ejercicio 1
 data Arbol a = Hoja a | Rama (Arbol a) (Arbol a)
 profundidadDeArbol :: Arbol a -> Int
 profundidadDeArbol (Hoja _) = 1
 profundidadDeArbol (Rama izq der) = 1 + max (profundidadDeArbol izq) (profundidadDeArbol der)
+
+-- ejercicio 2
+cantidadDeHojas :: Arbol a -> Int
+cantidadDeHojas (Hoja _) = 1
+cantidadDeHojas (Rama izq der) = cantidadDeHojas izq + cantidadDeHojas der
+
+-- ejercicio 3
+listaDeHojas :: Arbol a -> [a]
+listaDeHojas (Hoja a) = [a]
+listaDeHojas (Rama izq der) = listaDeHojas izq ++ listaDeHojas der
+
+-- ejercicio 4
+
