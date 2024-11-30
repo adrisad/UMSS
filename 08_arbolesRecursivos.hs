@@ -27,3 +27,19 @@ listaDeHojas (Rama izq der) = listaDeHojas izq ++ listaDeHojas der
 
 -- ejercicio 4
 
+foldTree :: (b -> b -> b) -> (a -> b) -> Arbol a -> b
+foldTree f g (Hoja a) = g a
+foldTree f g (Rama izq der) = f (foldTree f g izq) (foldTree f g der)
+
+-- a)
+profundidad :: Arbol a -> Int
+profundidad = foldTree (\izq der ->  1 + max izq der) (const 1)
+
+-- b)
+contadorDeHojas :: Arbol a -> Int
+contadorDeHojas = foldTree (+) (const 1)
+
+-- c)
+listaHojas :: Arbol a -> [a]
+listaHojas = foldTree (++) pure
+
